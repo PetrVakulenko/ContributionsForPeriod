@@ -29,7 +29,7 @@ if [ -z ${OUTPUT} ]; then
 fi
 
 OUTPUT=${CURRENT_PATH}/${OUTPUT}
-TMP_FILE=${CURRENT_PATH}/tmp.txt
+TMP_FILE=${CURRENT_PATH}/tmp/tmp.txt
 
 if [ -z ${AUTHOR} ]; then
     echo 'Author not defined. Please, add it to .env file.'

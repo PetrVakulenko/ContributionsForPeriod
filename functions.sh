@@ -35,6 +35,7 @@ function refreshRepo {
     fi
 
     BRANCH=$1
+    BRANCH=${1/origin\/}
 
     git checkout ${BRANCH};
     git pull origin ${BRANCH};

@@ -31,6 +31,7 @@ do
     else
         (
             cd ${LOCALREPO};
+
             refreshRepo ${DEFAULT_BRANCH};
         )
     fi
@@ -42,10 +43,8 @@ do
 
         writeRepoData ${REPOSRC};
 
-        for TMP_BRANCH in `getActiveBranches`
+        for BRANCH in `getActiveBranches`
         do
-            BRANCH=${TMP_BRANCH/origin\/}
-
             refreshRepo ${BRANCH};
 
             writeRepoData ${REPOSRC};
