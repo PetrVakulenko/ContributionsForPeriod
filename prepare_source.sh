@@ -42,8 +42,10 @@ do
 
         writeRepoData ${REPOSRC};
 
-        for BRANCH in `getActiveBranches`
+        for TMP_BRANCH in `getActiveBranches`
         do
+            BRANCH=${TMP_BRANCH/origin\/}
+
             refreshRepo ${BRANCH};
 
             writeRepoData ${REPOSRC};
