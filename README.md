@@ -38,7 +38,6 @@ make repos.config
 ### ENV params
 Configuration of the .env file:
 * `AUTHOR` - string, your login at the github account (for example `PetrVakulenko`)
-* `AUTHOR_EMAIL` - string, your email at the github account (for example `vakulenkopetya@gmail.com`)
 * `DAYS` - number, count of days, which you need to get contributions (for example `7`)
 * `REPOS_PATH` - path for clonning repos from repos.config. Has default value `./tmp/repos`
 * `OUTPUT` - text file file saving result of script. Has default value `./tmp/output.txt`

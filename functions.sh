@@ -21,9 +21,9 @@ function writeRepoData {
 function getActiveBranches {
     git for-each-ref \
         --sort=-committerdate \
-        --format="%(committerdate:short) %(authoremail) %(refname:short)" \
-        | grep ${AUTHOR_EMAIL} \
-        | awk '$0 > "$(date -dlast-monday +%Y-%m-%d)"' \
+        --format="%(committerdate:short) %(author) %(refname:short)" \
+        | grep ${AUTHOR} \
+        | awk -v date_from=$(date --date="${DAYS} day ago" +%Y-%m-%d) '$0 > date_from' \
         | awk -F" " '{print $NF}'
 }
 

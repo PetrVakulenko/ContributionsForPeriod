@@ -6,7 +6,7 @@ set -e
 . $( dirname $0 )/functions.sh
 
 #Remove output file and define repo file and repos path
-rm -rf ${OUTPUT} ${TMP_FILE} \
+rm -rf ${OUTPUT} ${TMP_FILE} ${REPOS_PATH} \
     && mkdir -p ${REPOS_PATH} \
     && touch ${OUTPUT} \
     && touch ${TMP_FILE}
@@ -24,22 +24,10 @@ do
         DEFAULT_BRANCH=master
     fi
 
-    # pull | clone
-    if [ ! -d "${LOCALREPO}/.git" ]
-    then
-        git clone --branch ${DEFAULT_BRANCH} ${REPOSRC} ${LOCALREPO}
-    else
-        (
-            cd ${LOCALREPO};
-
-            refreshRepo ${DEFAULT_BRANCH};
-        )
-    fi
+    git clone --branch ${DEFAULT_BRANCH} ${REPOSRC} ${LOCALREPO}
 
     (
         cd ${LOCALREPO};
-
-        set +e;
 
         writeRepoData ${REPOSRC};
 
@@ -49,8 +37,6 @@ do
 
             writeRepoData ${REPOSRC};
         done
-
-        set -e;
     )
 done < "${REPOS_FILE}"
 

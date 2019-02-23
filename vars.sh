@@ -37,12 +37,6 @@ if [ -z ${AUTHOR} ]; then
     exit 1
 fi
 
-if [ -z ${AUTHOR_EMAIL} ]; then
-    echo 'Author email not defined. Please, add it to .env file.'
-
-    exit 1
-fi
-
 if [ -z ${DAYS} ]; then
     echo 'Days not defined. Please, add it to .env file.'
 
