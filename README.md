@@ -26,7 +26,14 @@ git clone git@github.com:PetrVakulenko/ContributionsForPeriod.git ~/code/Contrib
 ```bash
 cd ~/code/ContributionsForPeriod/
 ```
-2. Create .env from .env.dist
+2. You can use default variables
+```bash
+REPOS_PATH=./tmp/repos
+OUTPUT=./tmp/output.txt
+EMAIL=$(git config user.email)
+DAYS=7
+```
+or create .env from .env.dist
 ```bash
 make .env
 ```
@@ -37,7 +44,7 @@ make repos.config
 
 ### ENV params
 Configuration of the .env file:
-* `AUTHOR` - string, your login at the github account (for example `PetrVakulenko`)
+* `EMAIL` - string, your email at the github account (for example `vakulenkopetya@gmail.com`)
 * `DAYS` - number, count of days, which you need to get contributions (for example `7`)
 * `REPOS_PATH` - path for clonning repos from repos.config. Has default value `./tmp/repos`
 * `OUTPUT` - text file file saving result of script. Has default value `./tmp/output.txt`

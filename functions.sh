@@ -11,7 +11,7 @@ function writeRepoData {
 
     REPOSRC=$1
 
-    TMP=$(git log --since=${DAYS}.days --author=${AUTHOR} --pretty=format:"[${REPOSRC}] %s");
+    TMP=$(git log --since=${DAYS}.days --author="<${EMAIL}>" --pretty=format:"[${REPOSRC}] %s");
 
     if [[ ! -z ${TMP} ]]; then
         echo -e "${TMP}\n" >> ${TMP_FILE};
@@ -22,9 +22,9 @@ function getActiveBranches {
     git for-each-ref \
         --sort=-committerdate \
         --format="%(committerdate:short) %(author) %(refname:short)" \
-        | grep ${AUTHOR} \
-        | awk -v date_from=$(date --date="${DAYS} day ago" +%Y-%m-%d) '$0 > date_from' \
+        | grep ${EMAIL} \
         | awk -F" " '{print $NF}'
+        #| awk -v date_from=$(date --date="${DAYS} day ago" +%Y-%m-%d) '$0 > date_from' \
 }
 
 function refreshRepo {

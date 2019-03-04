@@ -40,7 +40,7 @@ do
     )
 done < "${REPOS_FILE}"
 
-echo "Contributions OF ${AUTHOR} for last ${DAYS} days saved to file ${OUTPUT}:"
+echo "Contributions OF ${EMAIL} for last ${DAYS} days saved to file ${OUTPUT}:"
 cat ${TMP_FILE} | sort | uniq
 cat ${TMP_FILE} | sort | uniq > ${OUTPUT}
 
