@@ -22,9 +22,9 @@ function getActiveBranches {
     git for-each-ref \
         --sort=-committerdate \
         --format="%(committerdate:short) %(author) %(refname:short)" \
+        | awk -v date_from=$(date --date="${DAYS} day ago" +%Y-%m-%d) '$0 > date_from' \
         | grep ${EMAIL} \
         | awk -F" " '{print $NF}'
-        #| awk -v date_from=$(date --date="${DAYS} day ago" +%Y-%m-%d) '$0 > date_from' \
 }
 
 function refreshRepo {
@@ -37,6 +37,9 @@ function refreshRepo {
     BRANCH=$1
     BRANCH=${1/origin\/}
 
-    git checkout ${BRANCH};
-    git pull origin ${BRANCH};
+    #in case of remote branch not found set +e for checkout and pull
+    set +e
+    git checkout ${BRANCH}
+    git pull origin ${BRANCH}
+    set -e
 }

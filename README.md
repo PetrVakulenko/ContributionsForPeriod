@@ -53,7 +53,10 @@ Configuration of the .env file:
 Fill repos config for your repos. Each line - one row. One row should consist:
 * first param - repository
 * second param optionally - default branch (if not set, default branch will be master)
-* example of one line: `git@github.com:PetrVakulenko/ContributionsForPeriod.git test-branch`
+* examples of one line:
+    * `git@github.com:PetrVakulenko/ContributionsForPeriod.git` - default branch master
+    * `git@github.com:PetrVakulenko/ContributionsForPeriod.git test-branch` - default branch test-branch
+    * `git@github.com:PetrVakulenko/ContributionsForPeriod.git test-branch1;test-branch2` - default branches test-branch1 and test-branch2
 
 ### Build
 Running the script:

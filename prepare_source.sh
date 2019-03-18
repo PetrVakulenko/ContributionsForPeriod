@@ -15,16 +15,39 @@ rm -rf ${OUTPUT} ${TMP_FILE} ${REPOS_PATH} \
 while IFS= read -r var
 do
     # $1 = src
-    # $2 = default branch (if not master)
+    # $2 = default branches with delimiter `;` (or master, if $2 not defined)
     REPOSRC=$(echo ${var} | awk '{print $1}')
-    DEFAULT_BRANCH=$(echo ${var} | awk '{print $2}')
+    DEFAULT_BRANCHES=$(echo ${var} | awk '{print $2}')
     LOCALREPO=${REPOS_PATH}/${REPOSRC}
 
-    if [ -z ${DEFAULT_BRANCH} ]; then
-        DEFAULT_BRANCH=master
+    if [ ! -d "${LOCALREPO}/.git" ]; then
+        git clone --branch master ${REPOSRC} ${LOCALREPO}
+    else
+        (
+            cd ${LOCALREPO};
+
+            refreshRepo master;
+        )
     fi
 
-    git clone --branch ${DEFAULT_BRANCH} ${REPOSRC} ${LOCALREPO}
+    if [ -z ${DEFAULT_BRANCHES} ]; then
+        (
+            cd ${LOCALREPO};
+
+            writeRepoData ${REPOSRC};
+        )
+    else
+        IFS=';' read -ra ADDR <<< "${DEFAULT_BRANCHES}"
+        for BRANCH in "${ADDR[@]}"; do
+            (
+                cd ${LOCALREPO};
+
+                refreshRepo ${BRANCH};
+
+                writeRepoData ${REPOSRC};
+            )
+        done
+    fi
 
     (
         cd ${LOCALREPO};
